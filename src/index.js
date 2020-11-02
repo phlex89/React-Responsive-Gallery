@@ -102,15 +102,18 @@ const ResponsiveGallery = ({
                 paddingBottom={gallerySizes.imagesPaddingBottom}
                 className={`${imagesStyle} ${img.imgClassName || ""}`}
                 useLightBox={useLightBox}
-                onClick={() =>
-                  useLightBox &&
-                  lightBoxDispatch({
-                    type: "photoIndex_Open",
-                    photoIndex:
-                      imgIndex === 0
-                        ? colIndex
-                        : colIndex + imgIndex * gallerySizes.numOfImagePerRow,
-                  })
+                onClick={
+                  !!img.onClick
+                    ? () => img.onClick()
+                    : useLightBox &&
+                      lightBoxDispatch({
+                        type: "photoIndex_Open",
+                        photoIndex:
+                          imgIndex === 0
+                            ? colIndex
+                            : colIndex +
+                              imgIndex * gallerySizes.numOfImagePerRow,
+                      })
                 }
               />
             ))}
